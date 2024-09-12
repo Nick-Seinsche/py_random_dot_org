@@ -1,0 +1,39 @@
+[project]
+name = "PyRandomOrg"
+version = "1.0"
+authors = [{name = "Nick Seinsche", email = "nick.seinsche@gmail.com"}]
+license = {file = "LICENSE.txt"}
+readme = "README.md"
+
+requires-python = ">=3.10"
+dependencies = [
+    "requests"
+]
+
+[pyproject-optional-depenencies]
+dev = [
+    "build",
+    "pytest"
+]
+readthedocs = ["sphinx"]
+
+[project.urls]
+
+[tool.setuptools.packages.find]
+where = ['.']
+include = ['py_random_org']
+exclude = ['venv', 'tests']
+
+[tool.black]
+extend_exclude = '/(\.venv.*)/'
+line-length = 88
+
+[build-system]
+requires = [
+    "setuptools >= 40.9.0"
+]
+build-backend = "setuptools.build_meta"
+
+# pyproject.toml
+[tool.pytest.ini_options]
+pythonpath = [".", "py_random_org"]
