@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basic Api &mdash; py-random-dot-org 1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=292eb321"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            py-random-dot-org
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Basic Api</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi"><code class="docutils literal notranslate"><span class="pre">BasicApi</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi.generate_blobs"><code class="docutils literal notranslate"><span class="pre">BasicApi.generate_blobs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi.generate_decimal_fractions"><code class="docutils literal notranslate"><span class="pre">BasicApi.generate_decimal_fractions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi.generate_gaussians"><code class="docutils literal notranslate"><span class="pre">BasicApi.generate_gaussians()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi.generate_integer_sequences"><code class="docutils literal notranslate"><span class="pre">BasicApi.generate_integer_sequences()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi.generate_integers"><code class="docutils literal notranslate"><span class="pre">BasicApi.generate_integers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi.generate_strings"><code class="docutils literal notranslate"><span class="pre">BasicApi.generate_strings()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi.generate_uuids"><code class="docutils literal notranslate"><span class="pre">BasicApi.generate_uuids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#py_random_dot_org.basic_api.BasicApi.get_usage"><code class="docutils literal notranslate"><span class="pre">BasicApi.get_usage()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">py-random-dot-org</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Basic Api</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/pages/basic_api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-py_random_dot_org.basic_api">
+<span id="basic-api"></span><h1>Basic Api<a class="headerlink" href="#module-py_random_dot_org.basic_api" title="Link to this heading"></a></h1>
+<p>Module for interacting with the Random.org Basic API to generate random data.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">py_random_dot_org.basic_api.</span></span><span class="sig-name descname"><span class="pre">BasicApi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'4.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warn_below_quota_requests</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warn_below_quota_bits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Basic Api Wrapper for the Random.org API.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi.generate_blobs">
+<span class="sig-name descname"><span class="pre">generate_blobs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi.generate_blobs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi.generate_blobs" title="Link to this definition"></a></dt>
+<dd><p>Generate random blobs of data.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>num (int): The number of blobs to generate.
+size (int): The size of each blob in bytes.
+id (int): The identifier for the request. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The generated blobs of data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi.generate_decimal_fractions">
+<span class="sig-name descname"><span class="pre">generate_decimal_fractions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decimal_places</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi.generate_decimal_fractions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi.generate_decimal_fractions" title="Link to this definition"></a></dt>
+<dd><p>Generate decimal fractions.</p>
+<dl>
+<dt>Args:</dt><dd><p>num (int): The number of decimal fractions to generate.
+decimal_places (int): The number of decimal places for each fraction.
+replacement (bool): Whether to allow replacement of values.</p>
+<blockquote>
+<div><p>Defaults to True.</p>
+</div></blockquote>
+<p>id (int): The identifier for the request. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The generated decimal fractions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi.generate_gaussians">
+<span class="sig-name descname"><span class="pre">generate_gaussians</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">standard_deviation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">significant_digits</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi.generate_gaussians"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi.generate_gaussians" title="Link to this definition"></a></dt>
+<dd><p>Generate Gaussian-distributed numbers.</p>
+<dl>
+<dt>Args:</dt><dd><p>num (int): The number of Gaussian numbers to generate.
+mean (float): The mean of the Gaussian distribution.
+standard_deviation (float): The standard deviation of the</p>
+<blockquote>
+<div><p>Gaussian distribution.</p>
+</div></blockquote>
+<p>significant_digits (int): The number of significant digits for the output.
+id (int): The identifier for the request. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The generated Gaussian-distributed numbers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi.generate_integer_sequences">
+<span class="sig-name descname"><span class="pre">generate_integer_sequences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi.generate_integer_sequences"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi.generate_integer_sequences" title="Link to this definition"></a></dt>
+<dd><p>Generate integer sequences.</p>
+<dl>
+<dt>Args:</dt><dd><p>num (int): The number of sequences to generate.
+length (list[int]): The lengths of the sequences.
+minimum (list[int]): The minimum values for each sequence.
+maximum (list[int]): The maximum values for each sequence.
+replacement (list[bool]): Whether to allow replacement of values in</p>
+<blockquote>
+<div><p>each sequence. Defaults to None.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>base (list[int]): The base for encoding the integers in each sequence.</dt><dd><p>Defaults to 10.</p>
+</dd>
+</dl>
+<p>id (int): The identifier for the request. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The generated sequences.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi.generate_integers">
+<span class="sig-name descname"><span class="pre">generate_integers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minimum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pregenerateRandomiztion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi.generate_integers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi.generate_integers" title="Link to this definition"></a></dt>
+<dd><p>Generate true random integers within a user-defined range.</p>
+<dl>
+<dt>Args:</dt><dd><p>num (int): The number of integers to generate.
+minimum (int): The minimum value of the integers.
+maximum (int): The maximum value of the integers.
+replacement (bool): Whether to allow replacement of values.</p>
+<blockquote>
+<div><p>Defaults to True.</p>
+</div></blockquote>
+<p>base (int): The base for encoding the integers. Defaults to 10.
+pregenerateRandomiztion (dict | None): Optional parameter for</p>
+<blockquote>
+<div><p>pre-generation randomization. Defaults to None.</p>
+</div></blockquote>
+<p>id (int): The identifier for the request. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list[int | str]: The generated integers.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi.generate_strings">
+<span class="sig-name descname"><span class="pre">generate_strings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">characters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi.generate_strings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi.generate_strings" title="Link to this definition"></a></dt>
+<dd><p>Generate random strings.</p>
+<dl>
+<dt>Args:</dt><dd><p>num (int): The number of strings to generate.
+length (int): The length of each string.
+characters (str): The characters to use for generating the strings.
+replacement (bool): Whether to allow replacement of characters.</p>
+<blockquote>
+<div><p>Defaults to True.</p>
+</div></blockquote>
+<p>id (int): The identifier for the request. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The generated strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi.generate_uuids">
+<span class="sig-name descname"><span class="pre">generate_uuids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi.generate_uuids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi.generate_uuids" title="Link to this definition"></a></dt>
+<dd><p>Generate UUIDs.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>num (int): The number of UUIDs to generate.
+id (int): The identifier for the request. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>The generated UUIDs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="py_random_dot_org.basic_api.BasicApi.get_usage">
+<span class="sig-name descname"><span class="pre">get_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="reference internal" href="../_modules/py_random_dot_org/basic_api.html#BasicApi.get_usage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#py_random_dot_org.basic_api.BasicApi.get_usage" title="Link to this definition"></a></dt>
+<dd><p>Get the API usage statistics.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>id (int): The identifier for the request. Defaults to 1.</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: A dictionary containing usage statistics, including bits left,
+requests left, total bits, and total requests.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nick Seinsche.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

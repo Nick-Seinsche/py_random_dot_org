@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>py_random_dot_org.basic_api &mdash; py-random-dot-org 1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=292eb321"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            py-random-dot-org
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/basic_api.html">Basic Api</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">py-random-dot-org</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">py_random_dot_org.basic_api</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for py_random_dot_org.basic_api</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Module for interacting with the Random.org Basic API to generate random data.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BasicApi">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi">[docs]</a>
+<span class="k">class</span> <span class="nc">BasicApi</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Basic Api Wrapper for the Random.org API.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">version</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">version_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;4.0&quot;</span><span class="p">,</span>
+        <span class="n">warn_below_quota_requests</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">warn_below_quota_bits</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            api_key (str): The API key for authentication.</span>
+<span class="sd">            version (int): The version of the API to use. Defaults to 4.</span>
+<span class="sd">            version_str (str): The version string of the API. Defaults to &quot;4.0&quot;.</span>
+<span class="sd">            warn_below_quota_requests (int): The number of requests below which to</span>
+<span class="sd">                issue a warning. Defaults to 0.</span>
+<span class="sd">            warn_below_quota_bits (int): The number of bits below which to issue a</span>
+<span class="sd">                warning. Defaults to 0.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://api.random.org/json-rpc/</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">version</span><span class="p">)</span><span class="si">}</span><span class="s2">/invoke&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span> <span class="o">=</span> <span class="n">api_key</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span> <span class="o">=</span> <span class="n">version_str</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warn_below_quota_requests</span> <span class="o">=</span> <span class="n">warn_below_quota_requests</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">warn_below_quota_bits</span> <span class="o">=</span> <span class="n">warn_below_quota_bits</span>
+
+<div class="viewcode-block" id="BasicApi.generate_integers">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi.generate_integers">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_integers</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">minimum</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">maximum</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">replacement</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">base</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">pregenerateRandomiztion</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate true random integers within a user-defined range.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (int): The number of integers to generate.</span>
+<span class="sd">            minimum (int): The minimum value of the integers.</span>
+<span class="sd">            maximum (int): The maximum value of the integers.</span>
+<span class="sd">            replacement (bool): Whether to allow replacement of values.</span>
+<span class="sd">                Defaults to True.</span>
+<span class="sd">            base (int): The base for encoding the integers. Defaults to 10.</span>
+<span class="sd">            pregenerateRandomiztion (dict | None): Optional parameter for</span>
+<span class="sd">                pre-generation randomization. Defaults to None.</span>
+<span class="sd">            id (int): The identifier for the request. Defaults to 1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list[int | str]: The generated integers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;generateIntegers&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
+                <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">num</span><span class="p">,</span>
+                <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="n">minimum</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="n">maximum</span><span class="p">,</span>
+                <span class="s2">&quot;replacement&quot;</span><span class="p">:</span> <span class="n">replacement</span><span class="p">,</span>
+                <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="n">base</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;generate_integers&quot;</span><span class="p">,</span>
+            <span class="n">request_payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+            <span class="n">data_retrieve_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BasicApi.generate_integer_sequences">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi.generate_integer_sequences">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_integer_sequences</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">length</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">minimum</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">maximum</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">replacement</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">base</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate integer sequences.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (int): The number of sequences to generate.</span>
+<span class="sd">            length (list[int]): The lengths of the sequences.</span>
+<span class="sd">            minimum (list[int]): The minimum values for each sequence.</span>
+<span class="sd">            maximum (list[int]): The maximum values for each sequence.</span>
+<span class="sd">            replacement (list[bool]): Whether to allow replacement of values in</span>
+<span class="sd">                each sequence. Defaults to None.</span>
+<span class="sd">            base (list[int]): The base for encoding the integers in each sequence.</span>
+<span class="sd">                Defaults to 10.</span>
+<span class="sd">            id (int): The identifier for the request. Defaults to 1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The generated sequences.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;generateIntegerSequences&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
+                <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">num</span><span class="p">,</span>
+                <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">length</span><span class="p">,</span>
+                <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="n">minimum</span><span class="p">,</span>
+                <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="n">maximum</span><span class="p">,</span>
+                <span class="s2">&quot;replacement&quot;</span><span class="p">:</span> <span class="n">replacement</span><span class="p">,</span>
+                <span class="s2">&quot;base&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;generate_integer_sequences&quot;</span><span class="p">,</span>
+            <span class="n">request_payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+            <span class="n">data_retrieve_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BasicApi.generate_decimal_fractions">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi.generate_decimal_fractions">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_decimal_fractions</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">decimal_places</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">replacement</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate decimal fractions.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (int): The number of decimal fractions to generate.</span>
+<span class="sd">            decimal_places (int): The number of decimal places for each fraction.</span>
+<span class="sd">            replacement (bool): Whether to allow replacement of values.</span>
+<span class="sd">                Defaults to True.</span>
+<span class="sd">            id (int): The identifier for the request. Defaults to 1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The generated decimal fractions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;generateDecimalFractions&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
+                <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">num</span><span class="p">,</span>
+                <span class="s2">&quot;decimalPlaces&quot;</span><span class="p">:</span> <span class="n">decimal_places</span><span class="p">,</span>
+                <span class="s2">&quot;replacement&quot;</span><span class="p">:</span> <span class="n">replacement</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;generate_decimal_fractions&quot;</span><span class="p">,</span>
+            <span class="n">request_payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+            <span class="n">data_retrieve_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BasicApi.generate_gaussians">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi.generate_gaussians">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_gaussians</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">mean</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">standard_deviation</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">significant_digits</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate Gaussian-distributed numbers.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (int): The number of Gaussian numbers to generate.</span>
+<span class="sd">            mean (float): The mean of the Gaussian distribution.</span>
+<span class="sd">            standard_deviation (float): The standard deviation of the</span>
+<span class="sd">                Gaussian distribution.</span>
+<span class="sd">            significant_digits (int): The number of significant digits for the output.</span>
+<span class="sd">            id (int): The identifier for the request. Defaults to 1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The generated Gaussian-distributed numbers.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;generateGaussians&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
+                <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">num</span><span class="p">,</span>
+                <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="n">mean</span><span class="p">,</span>
+                <span class="s2">&quot;standardDeviation&quot;</span><span class="p">:</span> <span class="n">standard_deviation</span><span class="p">,</span>
+                <span class="s2">&quot;significantDigits&quot;</span><span class="p">:</span> <span class="n">significant_digits</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;generate_gaussians&quot;</span><span class="p">,</span>
+            <span class="n">request_payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+            <span class="n">data_retrieve_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BasicApi.generate_strings">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi.generate_strings">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_strings</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">characters</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">replacement</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate random strings.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (int): The number of strings to generate.</span>
+<span class="sd">            length (int): The length of each string.</span>
+<span class="sd">            characters (str): The characters to use for generating the strings.</span>
+<span class="sd">            replacement (bool): Whether to allow replacement of characters.</span>
+<span class="sd">                Defaults to True.</span>
+<span class="sd">            id (int): The identifier for the request. Defaults to 1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The generated strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;generateStrings&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
+                <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">num</span><span class="p">,</span>
+                <span class="s2">&quot;length&quot;</span><span class="p">:</span> <span class="n">length</span><span class="p">,</span>
+                <span class="s2">&quot;characters&quot;</span><span class="p">:</span> <span class="n">characters</span><span class="p">,</span>
+                <span class="s2">&quot;replacement&quot;</span><span class="p">:</span> <span class="n">replacement</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;generate_strings&quot;</span><span class="p">,</span>
+            <span class="n">request_payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+            <span class="n">data_retrieve_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BasicApi.generate_uuids">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi.generate_uuids">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_uuids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate UUIDs.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (int): The number of UUIDs to generate.</span>
+<span class="sd">            id (int): The identifier for the request. Defaults to 1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The generated UUIDs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;generateUUIDs&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">num</span><span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;generate_uuids&quot;</span><span class="p">,</span>
+            <span class="n">request_payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+            <span class="n">data_retrieve_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BasicApi.generate_blobs">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi.generate_blobs">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_blobs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate random blobs of data.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (int): The number of blobs to generate.</span>
+<span class="sd">            size (int): The size of each blob in bytes.</span>
+<span class="sd">            id (int): The identifier for the request. Defaults to 1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The generated blobs of data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;generateBlobs&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
+                <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="n">num</span><span class="p">,</span>
+                <span class="s2">&quot;size&quot;</span><span class="p">:</span> <span class="n">size</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;generate_blobs&quot;</span><span class="p">,</span>
+            <span class="n">request_payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+            <span class="n">data_retrieve_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">],</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BasicApi.get_usage">
+<a class="viewcode-back" href="../../pages/basic_api.html#py_random_dot_org.basic_api.BasicApi.get_usage">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the API usage statistics.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            id (int): The identifier for the request. Defaults to 1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: A dictionary containing usage statistics, including bits left,</span>
+<span class="sd">            requests left, total bits, and total requests.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;jsonrpc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version_str</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="s2">&quot;getUsage&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;apiKey&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_key</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get_usage&quot;</span><span class="p">,</span>
+            <span class="n">request_payload</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span>
+            <span class="n">data_retrieve_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;bits_left&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;bitsLeft&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;requests_left&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;requestsLeft&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;total_bits&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;totalBits&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;total_requests&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;totalRequests&quot;</span><span class="p">],</span>
+            <span class="p">},</span>
+        <span class="p">)</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">request_payload</span><span class="p">,</span> <span class="n">data_retrieve_func</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Pipeline for one API request.&quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_robust_http_request</span><span class="p">(</span><span class="n">request_payload</span><span class="p">,</span> <span class="s2">&quot;generate_integers&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_is_response_successful</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="s2">&quot;generate_integers&quot;</span><span class="p">)</span>
+
+        <span class="n">response_data</span><span class="p">,</span> <span class="n">requests_left</span><span class="p">,</span> <span class="n">bits_left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_result</span><span class="p">(</span>
+            <span class="n">response</span><span class="p">,</span> <span class="n">data_retrieve_func</span><span class="p">,</span> <span class="s2">&quot;generate_integers&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_is_low_quota</span><span class="p">(</span><span class="n">requests_left</span><span class="p">,</span> <span class="n">bits_left</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_sucess</span><span class="p">(</span><span class="s2">&quot;generate_integers&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">response_data</span>
+
+    <span class="k">def</span> <span class="nf">_robust_http_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Robust request.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ConnectionError</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;A ConnectionError occured during basicApi.</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">()&quot;</span><span class="p">,</span>
+                <span class="n">exc_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">return</span> <span class="n">response</span>
+
+    <span class="k">def</span> <span class="nf">_extract_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">data_retrieve_func</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract results from returned payload.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">default_func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="k">if</span> <span class="n">data_retrieve_func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data_retrieve_func</span> <span class="o">=</span> <span class="n">default_func</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response_result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)[</span><span class="s2">&quot;result&quot;</span><span class="p">]</span>
+            <span class="n">response_data</span> <span class="o">=</span> <span class="n">data_retrieve_func</span><span class="p">(</span><span class="n">response_result</span><span class="p">)</span>
+            <span class="n">requests_left</span> <span class="o">=</span> <span class="n">response_result</span><span class="p">[</span><span class="s2">&quot;requestsLeft&quot;</span><span class="p">]</span>
+            <span class="n">bits_left</span> <span class="o">=</span> <span class="n">response_result</span><span class="p">[</span><span class="s2">&quot;bitsLeft&quot;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not decode the http response of basicApi.</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">()&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+        <span class="k">return</span> <span class="n">response_data</span><span class="p">,</span> <span class="n">requests_left</span><span class="p">,</span> <span class="n">bits_left</span>
+
+    <span class="k">def</span> <span class="nf">_is_response_successful</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status_code</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check http response code for success.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="mi">200</span> <span class="o">&lt;=</span> <span class="n">status_code</span> <span class="o">&lt;=</span> <span class="mi">299</span><span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">&quot;Response Code indicates non succesful request for &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;basicApi.</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">()&quot;</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_is_low_quota</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requests_left</span><span class="p">,</span> <span class="n">bits_left</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if quota is low.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">warn_below_quota_requests</span>
+            <span class="ow">and</span> <span class="n">requests_left</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">warn_below_quota_requests</span>
+        <span class="p">):</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Low Request-Quota for API.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">warn_below_quota_bits</span> <span class="ow">and</span> <span class="n">bits_left</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">warn_below_quota_bits</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Low Bit-Quota for API.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_log_sucess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sucessfully retrieved basicApi.</span><span class="si">{</span><span class="n">method</span><span class="si">}</span><span class="s2">()&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span>
+        <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;../logs/log.log&quot;</span><span class="p">,</span>
+        <span class="n">filemode</span><span class="o">=</span><span class="s2">&quot;a&quot;</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%(asctime)s</span><span class="s2"> - </span><span class="si">%(name)s</span><span class="s2"> - </span><span class="si">%(levelname)s</span><span class="s2"> - </span><span class="si">%(message)s</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="n">api</span> <span class="o">=</span> <span class="n">BasicApi</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;API_KEY&quot;</span><span class="p">))</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">generate_integers</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">resp</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Nick Seinsche.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
