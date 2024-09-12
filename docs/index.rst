@@ -6,9 +6,8 @@
 py_random_org documentation
 ===========================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
+This Python module provides a wrapper for the `Random.org API`_ to generate various types of random data such as integers,
+sequences, decimal fractions, Gaussian numbers, strings, UUIDs, and random blobs.
 
 
 .. toctree::

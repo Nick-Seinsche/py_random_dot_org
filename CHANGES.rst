@@ -15,3 +15,8 @@ Changelog
 - improving sphinx documentation
 - updating pyproject.toml
 - adding github workflow for CI/CD of sphinx documentation
+
+1.0.2 (released 13.09.2024)
+----------------
+
+- adding github workflow for CI/CD to PYPI

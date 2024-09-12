@@ -1,6 +1,6 @@
 [project]
 name = "py-random-dot-org"
-version = "1.0.1"
+version = "1.0.2"
 authors = [{name = "Nick Seinsche", email = "nick.seinsche@gmail.com"}]
 description = "Random.org Api Wrapped in Python"
 license = {file = "LICENSE.txt"}
@@ -16,10 +16,11 @@ dev = [
     "build",
     "pytest"
 ]
-readthedocs = ["sphinx", "sphinx-rtd-theme"]
+docs = ["sphinx", "sphinx-rtd-theme"]
 
 [project.urls]
 Repository = "https://github.com/Nick-Seinsche/py_random_dot_org"
+Documentation = "https://nick-seinsche.github.io/py_random_dot_org/"
 
 [tool.setuptools.packages.find]
 where = ['.']
