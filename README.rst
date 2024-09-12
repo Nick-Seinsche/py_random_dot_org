@@ -1,5 +1,21 @@
 Random.org API Wrapper
 ======================
+.. image:: https://img.shields.io/badge/Version-1.0.2-blue
+   :target: https://github.com/Nick-Seinsche/py_random_dot_org/releases/tag/v1.0.2
+   :alt: Version 1.0.2
+
+.. image:: https://img.shields.io/github/actions/workflow/status/Nick-Seinsche/py_random_dot_org/.github%2Fworkflows%2Fpublish-pypi.yml
+   :alt: GitHub Actions Workflow Status
+
+.. image:: https://img.shields.io/badge/ReadTheDocs-Documentation-orange
+   :target: https://nick-seinsche.github.io/py_random_dot_org/
+   :alt: ReadTheDocs Documentation
+
+.. image:: https://img.shields.io/badge/PYPI-Package-red
+   :target: https://pypi.org/project/py-random-dot-org/
+   :alt: PYPI PAckage
+
+
 
 This Python module provides a wrapper for the `Random.org API`_ to generate various types of random data such as integers,
 sequences, decimal fractions, Gaussian numbers, strings, UUIDs, and random blobs.
