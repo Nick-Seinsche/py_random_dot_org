@@ -12,7 +12,7 @@ import tomllib
 
 sys.path.insert(0, os.path.abspath(".."))
 
-with open("pyproject.toml", "rb") as f:
+with open("../pyproject.toml", "rb") as f:
     metadata = tomllib.load(f)
 
 project = metadata["project"]["name"]
