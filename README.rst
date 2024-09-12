@@ -11,10 +11,15 @@ Features
 - Generate random strings, UUIDs, and blobs.
 - Retrieve API usage statistics, including remaining bits and requests.
 
-Installation
-------------
+Installation and Setup
+----------------------
 
+1. Install the package from PYPI:
+   ::
 
+       pip install py-random-dot-org
+
+2. Visit https://api.random.org/ and fetch an api key.
 
 Usage
 -----
