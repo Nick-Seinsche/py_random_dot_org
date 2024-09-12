@@ -6,7 +6,7 @@ description = "Random.org Api Wrapped in Python"
 license = {file = "LICENSE.txt"}
 readme = "README.rst"
 keywords = ["random", "api", "wrapper"]
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 dependencies = [
     "requests"
 ]
