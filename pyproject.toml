@@ -16,7 +16,7 @@ dev = [
     "build",
     "pytest"
 ]
-readthedocs = ["sphinx"]
+readthedocs = ["sphinx", "sphinx-rtd-theme"]
 
 [project.urls]
 Repository = "https://github.com/Nick-Seinsche/py_random_dot_org"
