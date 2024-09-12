@@ -1,11 +1,12 @@
 [project]
-name = "PyRandomOrg"
-version = "1.0"
+name = "py-random-dot-org"
+version = "1.0.1"
 authors = [{name = "Nick Seinsche", email = "nick.seinsche@gmail.com"}]
+description = "Random.org Api Wrapped in Python"
 license = {file = "LICENSE.txt"}
-readme = "README.md"
-
-requires-python = ">=3.10"
+readme = "README.rst"
+keywords = ["random", "api", "wrapper"]
+requires-python = ">=3.8"
 dependencies = [
     "requests"
 ]
@@ -18,10 +19,11 @@ dev = [
 readthedocs = ["sphinx"]
 
 [project.urls]
+Repository = "https://github.com/Nick-Seinsche/py_random_dot_org"
 
 [tool.setuptools.packages.find]
 where = ['.']
-include = ['py_random_org']
+include = ['py_random_dot_org']
 exclude = ['venv', 'tests']
 
 [tool.black]
@@ -36,4 +38,4 @@ build-backend = "setuptools.build_meta"
 
 # pyproject.toml
 [tool.pytest.ini_options]
-pythonpath = [".", "py_random_org"]
+pythonpath = [".", "py_random_dot_org"]

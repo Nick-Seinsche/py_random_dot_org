@@ -1,0 +1,17 @@
+Changelog
+=========
+
+
+1.0.0 (released 12.09.2024)
+----------------
+
+- Initial release.
+- Wrapper supports the Basic Api
+
+
+1.0.1 (released 12.09.2024)
+----------------
+
+- improving sphinx documentation
+- updating pyproject.toml
+- adding github workflow for CI/CD of sphinx documentation
