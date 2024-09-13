@@ -11,10 +11,12 @@ dependencies = [
     "requests"
 ]
 
-[pyproject-optional-depenencies]
+[project.optional-dependencies]
 dev = [
     "build",
-    "pytest"
+    "pytest",
+    "flake8",
+    "flake8-docstrings"
 ]
 docs = ["sphinx", "sphinx-rtd-theme"]
 

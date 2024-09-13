@@ -1,9 +1,13 @@
+"""Test the basic Api."""
+
+# standard
 import pytest
-import requests
 import json
 import logging
 from unittest.mock import patch, Mock
-from basic_api import BasicApi  # assuming the module is named basic_api.py
+
+# local
+from basic_api import BasicApi
 
 logger = logging.getLogger(__name__)
 
@@ -66,7 +70,7 @@ def test_generate_integers(basic_api):
 
 
 def test_generate_integer_sequences(basic_api):
-    """Test generate_integer_sequences method to ensure it returns valid integer sequences."""
+    """Test method to ensure it returns valid integer sequences."""
     with patch("requests.post") as mocked_post:
         mock_post_response(
             mocked_post,
@@ -89,7 +93,7 @@ def test_generate_integer_sequences(basic_api):
 
 
 def test_generate_decimal_fractions(basic_api):
-    """Test generate_decimal_fractions method to ensure it returns a valid list of decimal numbers."""
+    """Test method to ensure it returns a valid list of decimal numbers."""
     with patch("requests.post") as mocked_post:
         mock_post_response(
             mocked_post,
@@ -111,7 +115,7 @@ def test_generate_decimal_fractions(basic_api):
 
 
 def test_generate_gaussians(basic_api):
-    """Test generate_gaussians method to ensure it returns Gaussian-distributed numbers."""
+    """Test method to ensure it returns Gaussian-distributed numbers."""
     with patch("requests.post") as mocked_post:
         mock_post_response(
             mocked_post,
@@ -136,7 +140,7 @@ def test_generate_gaussians(basic_api):
 
 
 def test_generate_strings(basic_api):
-    """Test generate_strings method to ensure it returns a valid list of random strings."""
+    """Test method to ensure it returns a valid list of random strings."""
     with patch("requests.post") as mocked_post:
         mock_post_response(
             mocked_post,
@@ -181,7 +185,7 @@ def test_generate_uuids(basic_api):
 
 
 def test_generate_blobs(basic_api):
-    """Test generate_blobs method to ensure it returns a valid list of random blobs."""
+    """Test method to ensure it returns a valid list of random blobs."""
     with patch("requests.post") as mocked_post:
         mock_post_response(
             mocked_post,
@@ -201,7 +205,7 @@ def test_generate_blobs(basic_api):
 
 
 def test_get_usage(basic_api):
-    """Test get_usage method to ensure it returns a dictionary of API usage statistics."""
+    """Test method to ensure it returns a dictionary of API usage statistics."""
     with patch("requests.post") as mocked_post:
         mock_post_response(
             mocked_post,

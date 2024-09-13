@@ -2,6 +2,6 @@
 logs/
 *egg-info
 docs/_build
-venv
+.venv
 __pycache__
 dist
