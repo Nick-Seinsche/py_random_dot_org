@@ -17,3 +17,5 @@ sequences, decimal fractions, Gaussian numbers, strings, UUIDs, and random blobs
    pages/getting_started
    pages/basic_api
 
+
+.. _Random.org API: https://api.random.org/

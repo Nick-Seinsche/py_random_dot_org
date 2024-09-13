@@ -46,7 +46,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-and-setup">Installation and Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="basic_api.html">Basic Api</a></li>
 </ul>
 
@@ -76,6 +83,71 @@
              
   <section id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h1>
+<p>This Python package provides a wrapper for the <a class="reference external" href="https://api.random.org/">Random.org API</a> to generate various types of random data such as integers,
+sequences, decimal fractions, Gaussian numbers, strings, UUIDs, and random blobs.</p>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Generate random integers, integer sequences, decimal fractions, and Gaussian-distributed numbers.</p></li>
+<li><p>Generate random strings, UUIDs, and blobs.</p></li>
+<li><p>Retrieve API usage statistics, including remaining bits and requests.</p></li>
+</ul>
+</section>
+<section id="installation-and-setup">
+<h2>Installation and Setup<a class="headerlink" href="#installation-and-setup" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Install the package from PYPI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">py</span><span class="o">-</span><span class="n">random</span><span class="o">-</span><span class="n">dot</span><span class="o">-</span><span class="n">org</span>
+</pre></div>
+</div>
+</li>
+<li><p>Visit <a class="reference external" href="https://api.random.org/">https://api.random.org/</a> and fetch an api key.</p></li>
+</ol>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Import the <code class="docutils literal notranslate"><span class="pre">BasicApi</span></code> class and initialize it with your Random.org API key:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">py_random_dot_org.basic_api</span> <span class="kn">import</span> <span class="n">BasicApi</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">BasicApi</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;your_api_key&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>Call the available methods to generate random data. For example, to generate random integers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">random_integers</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">generate_integers</span><span class="p">(</span><span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">minimum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">maximum</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">random_integers</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p>You can also check your API usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage_stats</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">get_usage</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">usage_stats</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="running-tests">
+<h2>Running Tests<a class="headerlink" href="#running-tests" title="Link to this heading"></a></h2>
+<p>The project includes tests written using <code class="docutils literal notranslate"><span class="pre">pytest</span></code>. To run the tests:</p>
+<ol class="arabic">
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pytest</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run the tests:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pytest</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>This project is licensed under the MIT License. See the LICENSE file for details.</p>
+</section>
 </section>
 
 
