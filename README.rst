@@ -18,6 +18,8 @@ Random.org API Wrapper
 This Python package provides a wrapper for the `Random.org API`_ to generate various types of random data such as integers,
 sequences, decimal fractions, Gaussian numbers, strings, UUIDs, and random blobs.
 
+**Skills/learnings:** CI/CD (to PYPI), Python DevOps, Github Workflows
+
 Features
 --------
 
